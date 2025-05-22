@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/schedule_stat.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Годовая аналитика смен сотрудников</h1>
+
+      <div class="controls no-print">
+        <select id="year-selector">
+          <!-- Годы будут добавлены скриптом -->
+        </select>
+      </div>
+
+      <table class="analytics-table">
+        <thead>
+          <tr>
+            <th>Сотрудник</th>
+            <th>Янв</th>
+            <th>Фев</th>
+            <th>Мар</th>
+            <th>Апр</th>
+            <th>Май</th>
+            <th>Июн</th>
+            <th>Июл</th>
+            <th>Авг</th>
+            <th>Сен</th>
+            <th>Окт</th>
+            <th>Ноя</th>
+            <th>Дек</th>
+            <th>Всего</th>
+          </tr>
+        </thead>
+        <tbody id="analytics-body">
+          <!-- Данные будут заполнены скриптом -->
+        </tbody>
+      </table>
+
+      <button class="print-btn no-print" onclick="window.print()">
+        Печать отчёта
+      </button>
+    </div>
+
+    <script src="js/schedule_stat.js"></script>
+  </body>
+</html>

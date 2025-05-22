@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/schedule_ac.css" />
+    <title>График посещения ВС</title>
+  </head>
+
+  <body>
+    <h1>График работников</h1>
+
+    <div class="controls">
+      <select id="year-selector">
+        <!-- Годы будут добавлены скриптом -->
+      </select>
+
+      <select id="month-selector">
+        <option value="0">Январь</option>
+        <option value="1">Февраль</option>
+        <option value="2">Март</option>
+        <option value="3">Апрель</option>
+        <option value="4">Май</option>
+        <option value="5">Июнь</option>
+        <option value="6">Июль</option>
+        <option value="7">Август</option>
+        <option value="8">Сентябрь</option>
+        <option value="9">Октябрь</option>
+        <option value="10">Ноябрь</option>
+        <option value="11">Декабрь</option>
+      </select>
+    </div>
+
+    <div id="month-title" class="month-title"></div>
+
+    <table class="calendar">
+      <thead>
+        <tr>
+          <th class="employee-name">Фамилия</th>
+          <!-- Заголовки дней будут вставлены скриптом -->
+        </tr>
+      </thead>
+      <tbody id="calendar-body">
+        <!-- Строки будут добавлены скриптом -->
+      </tbody>
+    </table>
+
+    <button id="save-btn" class="save-btn">Сохранить график</button>
+
+    <!-- Добавляем кнопку для открытия статистики -->
+    <button
+      onclick="window.location.href='schedule_stat.html'"
+      class="stats-btn"
+    >
+      Показать статистику
+      <a href="schedule_stat.html"></a>
+    </button>
+
+    <script src="js/schedule_ac.js"></script>
+  </body>
+</html>
