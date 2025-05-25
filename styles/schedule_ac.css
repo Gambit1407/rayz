@@ -25,6 +25,13 @@ select {
   border: 1px solid #ccc;
 }
 
+.container-legend {
+  display: flex;
+  position: relative;
+  background-color: #3498db;
+}
+
+
 .calendar {
   border-collapse: collapse;
   width: 100%;
@@ -47,7 +54,7 @@ select {
 
 .calendar th.employee-name {
   background-color: #e6f7ff;
-  text-align: left;
+  text-align: center;
   width: 200px;
 }
 
@@ -112,20 +119,36 @@ select {
   background-color: #45a049;
 }
 
+.stats-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #2a6eb1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.stats-btn:hover {
+  background-color: #2d7dce;
+}
+
 .selected-value {
   padding: 3px;
   border-radius: 3px;
 }
 
-.day {
+.aircraft {
   background-color: #e1f5fe;
 }
-.night {
+.maintenance {
   background-color: #e8f5e9;
 }
-.vacation {
+.heavy {
   background-color: #fff3e0;
 }
-.sick {
+.study {
   background-color: #ffebee;
 }

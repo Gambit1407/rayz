@@ -18,10 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
   // Варианты для выпадающего меню
   const shiftOptions = [
     { value: "", text: "-", class: "" },
-    { value: "day", text: "День", class: "day" },
-    { value: "night", text: "Ночь", class: "night" },
-    { value: "vacation", text: "Отпуск", class: "vacation" },
-    { value: "sick", text: "Больничный", class: "sick" },
+    { value: "aircraft", text: "С", class: "aircraft" },
+    { value: "maintenance", text: "Ц", class: "maintenance" },
+    { value: "heavy", text: "Ч", class: "heavy" },
+    { value: "study", text: "У", class: "study" },
   ];
 
   // Добавляем годы в селектор (от 2020 до 2030)
