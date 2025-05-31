@@ -2,15 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const yearSelector = document.getElementById("year-selector");
   const analyticsBody = document.getElementById("analytics-body");
 
-  // Данные работников (можно заменить на запрос к серверу)
-  const employees = [
-    { id: 1, name: "Иванов" },
-    { id: 2, name: "Петров" },
-    { id: 3, name: "Сидоров" },
-    { id: 4, name: "Кузнецова" },
-    { id: 5, name: "Смирнов" },
-  ];
-
   // Заполняем селектор годов (текущий год и +/- 5 лет)
   const currentYear = new Date().getFullYear();
   for (let year = currentYear - 5; year <= currentYear + 5; year++) {
@@ -21,73 +12,80 @@ document.addEventListener("DOMContentLoaded", function () {
     yearSelector.appendChild(option);
   }
 
-  // Функция генерации случайных данных для демонстрации
-//   function generateDemoData() {
-//     const year = parseInt(yearSelector.value);
-//     const data = {};
-
-//     employees.forEach((employee) => {
-//       data[employee.id] = {};
-//       for (let month = 0; month < 12; month++) {
-//         data[employee.id][month] = {
-//           day: Math.floor(Math.random() * 10),
-//           night: Math.floor(Math.random() * 8),
-//           vacation: Math.floor(Math.random() * 3),
-//           sick: Math.floor(Math.random() * 2),
-//         };
-//       }
-//     });
-
-//     return data;
-//   }
-
-  // Функция обновления таблицы аналитики
-  function updateAnalytics() {
-    // В реальном приложении здесь должен быть AJAX-запрос к серверу
+  // Загрузка и отображение статистики
+  async function updateAnalytics() {
     const year = parseInt(yearSelector.value);
-    const analyticsData = generateDemoData(); // Замените на реальные данные
 
-    analyticsBody.innerHTML = "";
+    try {
+      const response = await fetch(`http://localhost:8888/rayz/load_stat.php?year=${year}`);
+      const data = await response.json();
 
-    // Добавляем строки для каждого сотрудника
-    employees.forEach((employee) => {
-      const row = document.createElement("tr");
-
-      // Ячейка с именем
-      const nameCell = document.createElement("td");
-      nameCell.className = "month-name";
-      nameCell.textContent = employee.name;
-      row.appendChild(nameCell);
-
-      let yearlyTotal = 0;
-
-      // Добавляем данные по месяцам
-      for (let month = 0; month < 12; month++) {
-        const monthData = analyticsData[employee.id][month];
-        const total =
-          monthData.day + monthData.night + monthData.vacation + monthData.sick;
-        yearlyTotal += total;
-
-        const cell = document.createElement("td");
-        cell.textContent = total;
-        row.appendChild(cell);
+      if (data.status !== "success") {
+        throw new Error(data.message || "Ошибка загрузки статистики");
       }
 
-      // Итоговая ячейка
+      renderAnalyticsTable(data.employees);
+    } catch (error) {
+      console.error("Ошибка при получении статистики:", error);
+      analyticsBody.innerHTML = `<tr><td colspan="6" style="color: red;">Ошибка загрузки данных</td></tr>`;
+    }
+  }
+
+  function renderAnalyticsTable(employees) {
+    analyticsBody.innerHTML = "";
+
+    employees.forEach((emp) => {
+      const row = document.createElement("tr");
+
+      const nameCell = document.createElement("td");
+      nameCell.textContent = emp.employee;
+      row.appendChild(nameCell);
+
+      const aircraftCell = document.createElement("td");
+      aircraftCell.textContent = emp.aircraft;
+      row.appendChild(aircraftCell);
+
+      const maintenanceCell = document.createElement("td");
+      maintenanceCell.textContent = emp.maintenance;
+      row.appendChild(maintenanceCell);
+
+      const heavyCell = document.createElement("td");
+      heavyCell.textContent = emp.heavy;
+      row.appendChild(heavyCell);
+
+      const studyCell = document.createElement("td");
+      studyCell.textContent = emp.study;
+      row.appendChild(studyCell);
+
       const totalCell = document.createElement("td");
-      totalCell.textContent = yearlyTotal;
+      totalCell.textContent = emp.total;
       totalCell.style.fontWeight = "bold";
       row.appendChild(totalCell);
 
       analyticsBody.appendChild(row);
     });
 
-    // Добавляем итоговую строку
-    addTotalRow();
+    renderTotalRow();
   }
 
-  // Функция добавления итоговой строки
-  function addTotalRow() {
+  function renderTotalRow() {
+    const totals = {
+      aircraft: 0,
+      maintenance: 0,
+      heavy: 0,
+      study: 0,
+      total: 0
+    };
+
+    document.querySelectorAll("#analytics-body tr").forEach((tr) => {
+      const cells = tr.querySelectorAll("td");
+      totals.aircraft += parseInt(cells[1].textContent) || 0;
+      totals.maintenance += parseInt(cells[2].textContent) || 0;
+      totals.heavy += parseInt(cells[3].textContent) || 0;
+      totals.study += parseInt(cells[4].textContent) || 0;
+      totals.total += parseInt(cells[5].textContent) || 0;
+    });
+
     const row = document.createElement("tr");
     row.className = "total-row";
 
@@ -95,45 +93,16 @@ document.addEventListener("DOMContentLoaded", function () {
     labelCell.textContent = "Всего";
     row.appendChild(labelCell);
 
-    const monthlyTotals = Array(12).fill(0);
-    let grandTotal = 0;
-
-    // Считаем суммы по месяцам
-    document.querySelectorAll("#analytics-body tr").forEach((tr) => {
-      const cells = tr.querySelectorAll(
-        "td:not(:first-child):not(:last-child)"
-      );
-      cells.forEach((cell, index) => {
-        monthlyTotals[index] += parseInt(cell.textContent) || 0;
-      });
-    });
-
-    // Добавляем ячейки с месячными итогами
-    monthlyTotals.forEach((total) => {
+    ["aircraft", "maintenance", "heavy", "study", "total"].forEach((key) => {
       const cell = document.createElement("td");
-      cell.textContent = total;
-      grandTotal += total;
+      cell.textContent = totals[key];
       row.appendChild(cell);
     });
-
-    // Итоговая ячейка
-    const totalCell = document.createElement("td");
-    totalCell.textContent = grandTotal;
-    row.appendChild(totalCell);
 
     analyticsBody.appendChild(row);
   }
 
-  // Обработчик изменения года
+  // Инициализация
   yearSelector.addEventListener("change", updateAnalytics);
-
-  // Инициализация при загрузке
   updateAnalytics();
 });
-
-// В реальном приложении добавьте здесь функции для работы с сервером
-// Например:
-// async function loadAnalyticsData(year) {
-//     const response = await fetch(`/api/analytics?year=${year}`);
-//     return await response.json();
-// }
