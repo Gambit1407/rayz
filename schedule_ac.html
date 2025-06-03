@@ -3,11 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/schedule_ac.css" />
+    <link rel="stylesheet" href="./styles/schedule_ac.css" />
+    <link rel="stylesheet" href="./styles/theme.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
     <title>График посещения ВС</title>
   </head>
 
   <body>
+    <a class="back-link" href="./index.html"><-- Назад</a>
+
+    <div class="theme-switch-container">
+      <span class="theme-label">Тема</span>
+      <button class="theme-switcher" id="theme-toggle">
+        <span class="toggle-handle"></span>
+      </button>
+    </div>
+
     <h1>График посещения ВС</h1>
 
     <div class="controls">
@@ -34,17 +49,34 @@
     <div id="month-title" class="month-title"></div>
 
     <div class="container-legend">
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>4</div>
-      <div>5</div>
+      <div class="container-legend-double">
+        <div>
+          <span class="legend blue">C</span>
+          <span> - </span>
+          <span>Самолет</span>
+        </div>
+        <div>
+          <span class="legend green">Ц</span>
+          <span> - </span>
+          <span>Цех</span>
+        </div>
+        <div>
+          <span class="legend orange">Ч</span>
+          <span> - </span>
+          <span>Чек</span>
+        </div>
+        <div>
+          <span class="legend red">У</span>
+          <span> - </span>
+          <span>Учеба</span>
+        </div>
+      </div>
     </div>
 
     <table class="calendar">
       <thead>
         <tr>
-          <th class="employee-name">Фамилия</th>
+          <th class="employee-name surname-header">Фамилия</th>
           <!-- Заголовки дней будут вставлены скриптом -->
         </tr>
       </thead>
@@ -58,9 +90,10 @@
       onclick="window.location.href='schedule_stat.html'"
       class="stats-btn"
     >
-      Показать статистику
+      Статистика
     </button>
 
     <script src="js/schedule_ac.js"></script>
+    <script src="./js/theme.js"></script>
   </body>
 </html>

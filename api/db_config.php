@@ -1,7 +1,7 @@
 <?php
 // config/db_config.php
 $hostDB = "localhost";
-$baseName = "actable";
+$baseName = "rayz";
 $userDB = "root";
 $passDB = '!Popova14';
 

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const year = parseInt(yearSelector.value);
 
     try {
-      const response = await fetch(`http://localhost:8888/rayz/load_stat.php?year=${year}`);
+      const response = await fetch(`http://localhost:8888/rayz/api/load_stat.php?year=${year}`);
       const data = await response.json();
 
       if (data.status !== "success") {

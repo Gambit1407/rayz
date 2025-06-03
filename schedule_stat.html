@@ -3,10 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/schedule_stat.css">
+    <link rel="stylesheet" href="./styles/schedule_stat.css" />
+    <link rel="stylesheet" href="./styles/theme.css" />
     <title>Статистика</title>
   </head>
   <body>
+    <a class="back-link" href="./schedule_ac.html"><-- Назад</a>
+
+    <div class="theme-switch-container">
+      <span class="theme-label">Тема</span>
+      <button class="theme-switcher" id="theme-toggle">
+        <span class="toggle-handle"></span>
+      </button>
+    </div>
+
+
     <div class="container">
       <h1>Годовая аналитика посещения ВС</h1>
 
@@ -37,6 +48,9 @@
       </button>
     </div>
 
+   
+
     <script src="js/schedule_stat.js"></script>
+    <script src="./js/theme.js"></script>
   </body>
 </html>

@@ -8,10 +8,18 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles/style.css" />
-    <title>График посещения ВС</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/theme.css" />
+    <link rel="stylesheet" href="./styles/fog.css">
+    <title>Главная</title>
   </head>
   <body>
+    <div class="theme-switch-container">
+      <span class="theme-label">Тема</span>
+      <button class="theme-switcher" id="theme-toggle">
+        <span class="toggle-handle"></span>
+      </button>
+    </div>
     <div class="container">
       <div class="nav-bar">
         <img class="logo" src="img/var1.svg" alt="" />
@@ -19,9 +27,10 @@
           <a href="schedule_ac.html">График посещения</a>
         </div>
       </div>
-      <div class="work-space">
-        
-      </div>
+      <div class="work-space"></div>
     </div>
+
+
+    <script src="./js/theme.js"></script>
   </body>
 </html>

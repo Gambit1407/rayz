@@ -1,0 +1,159 @@
+@font-face {
+  font-family: "Magistral-Medium";
+  src: url("../fonts/Magistral-Medium.woff2") format("woff2"),
+    url("../fonts/Magistral-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Magistral-Light";
+  src: url("../fonts/Magistral-Light.woff2") format("woff2"),
+    url("../fonts/Magistral-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+:root {
+  /* Тёмная тема (по умолчанию) */
+  --bg-color: linear-gradient(
+    135deg,
+    #0b1120 0%,     /* почти чёрный с синим подтоном */
+    #0f172a 30%,     /* тёмно-синий (как ночное небо) */
+    #0b1120 60%,     /* возврат к глубокой темноте */
+    #0e7490 100%     /* бирюзово-голубой акцент */
+  );
+  --text-color: #c1ebeb;
+  --primary-color: #3b82f6;
+  --legend-text-color: #15141b;
+  --th-border: #3f3f3f;
+  --font-light: "Magistral-Light";
+  --font-medium: "Magistral-Medium";
+  --th-text-color: #333333;
+  --links-decor: #cccc;
+}
+
+[data-theme="light"] {
+  /* Светлая тема (включается при data-theme="light") */
+   --bg-color: linear-gradient(
+    135deg,
+    #ffffff 0%,       /* чистый белый (основа) */
+    #f0f9ff 25%,      /* явный голубой оттенок (как небо) */
+    #e0f2fe 60%,      /* мягкий голубой (как лёд) */
+    #bae6fd 100%      /* лёгкая бирюзовая нотка */
+  );
+  --text-color: #333333;
+  --th-border: #cccccc;
+  --primary-color: #2563eb;
+}
+
+body {
+  background-image: var(--bg-color); /* Изменено с background-color */
+  background-attachment: fixed; /* Чтобы градиент покрывал весь экран */
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--text-color);
+  min-height: 100vh; /* На всю высоту viewport */
+  transition: background-image 0.3s ease, color 0.3s ease;
+}
+
+/* Основной контейнер */
+.theme-switch-container {
+  display: flex;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 100px;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+}
+
+/* Текстовая метка */
+.theme-label {
+  font-family: var(--font-light);
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+/* Кнопка переключателя */
+.theme-switcher {
+  position: relative;
+  width: 60px;
+  height: 30px;
+  border: none;
+  border-radius: 50px;
+  background: #f0f0f0;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .theme-switcher {
+  background: #222;
+  box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.1);
+}
+
+/* Бегунок переключателя */
+.toggle-handle {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .toggle-handle {
+  left: calc(100% - 24px - 3px);
+  background: #333;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Эффекты при наведении */
+.theme-switcher:hover {
+  transform: scale(1.05);
+}
+
+.theme-switcher:active {
+  transform: scale(0.98);
+}
+
+/* Добавляем иконки с помощью псевдоэлементов */
+.toggle-handle::before,
+.toggle-handle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+/* Иконка солнца (светлая тема) */
+.toggle-handle::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23444444'%3E%3Cpath d='M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,2L14.39,5.42C13.65,5.15 12.84,5 12,5C11.16,5 10.35,5.15 9.61,5.42L12,2M3.34,7L7.5,6.65C6.9,7.16 6.36,7.78 5.94,8.5C5.5,9.24 5.25,10 5.11,10.79L3.34,7M3.36,17L5.12,13.23C5.26,14 5.53,14.78 5.95,15.5C6.37,16.24 6.91,16.86 7.5,17.37L3.36,17M20.65,7L18.88,10.79C18.74,10 18.47,9.23 18.05,8.5C17.63,7.78 17.1,7.15 16.5,6.64L20.65,7M20.64,17L16.5,17.36C17.09,16.85 17.62,16.22 18.04,15.5C18.46,14.77 18.73,14 18.87,13.21L20.64,17M12,22L9.59,18.56C10.33,18.83 11.14,19 12,19C12.82,19 13.63,18.83 14.37,18.56L12,22Z'/%3E%3C/svg%3E");
+  opacity: 1;
+}
+
+/* Иконка луны (темная тема) */
+.toggle-handle::after {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f0f0f0'%3E%3Cpath d='M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M12,19A7,7 0 0,1 5,12A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19Z'/%3E%3C/svg%3E");
+  opacity: 0;
+}
+
+.dark-mode .toggle-handle::before {
+  opacity: 0;
+}
+
+.dark-mode .toggle-handle::after {
+  opacity: 1;
+}
